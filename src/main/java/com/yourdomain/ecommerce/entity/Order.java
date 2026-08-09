@@ -2,6 +2,7 @@ package com.yourdomain.ecommerce.entity;
 
 import com.yourdomain.ecommerce.common.BaseEntity;
 import com.yourdomain.ecommerce.enums.OrderStatus;
+import com.yourdomain.ecommerce.enums.PaymentMethod;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -42,10 +43,34 @@ public class Order extends BaseEntity {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
+    @Column(name = "code", length = 32)
+    private String code;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false, length = 16)
     @Builder.Default
     private OrderStatus status = OrderStatus.PENDING;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "payment_method", nullable = false, length = 16)
+    @Builder.Default
+    private PaymentMethod paymentMethod = PaymentMethod.COD;
+
+    @Column(name = "subtotal", nullable = false, precision = 12, scale = 2)
+    @Builder.Default
+    private BigDecimal subtotal = BigDecimal.ZERO;
+
+    @Column(name = "shipping_fee", nullable = false, precision = 12, scale = 2)
+    @Builder.Default
+    private BigDecimal shippingFee = BigDecimal.ZERO;
+
+    @Column(name = "discount_amount", nullable = false, precision = 12, scale = 2)
+    @Builder.Default
+    private BigDecimal discountAmount = BigDecimal.ZERO;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "voucher_id")
+    private Voucher voucher;
 
     @Column(name = "total_amount", nullable = false, precision = 12, scale = 2)
     private BigDecimal totalAmount;

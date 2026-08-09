@@ -48,3 +48,7 @@ application-local.yml
 
 # Spring devtools restart
 .spring-boot-devtools.properties
+
+# Test / debug artifacts
+.playwright-mcp/
+smoke-test-*.png

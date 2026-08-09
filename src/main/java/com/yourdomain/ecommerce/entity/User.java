@@ -53,6 +53,12 @@ public class User extends BaseEntity {
     @Column(name = "full_name", length = 128)
     private String fullName;
 
+    @Column(name = "phone", length = 32)
+    private String phone;
+
+    @Column(name = "avatar_url", length = 512)
+    private String avatarUrl;
+
     @Enumerated(EnumType.STRING)
     @Column(name = "status", nullable = false, length = 16)
     private UserStatus status;

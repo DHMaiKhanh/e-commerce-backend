@@ -34,4 +34,11 @@ public class Category extends BaseEntity {
 
     @Column(name = "slug", nullable = false, length = 128)
     private String slug;
+
+    @Column(name = "image_url", length = 512)
+    private String imageUrl;
+
+    @Column(name = "position", nullable = false)
+    @Builder.Default
+    private Integer position = 0;
 }
