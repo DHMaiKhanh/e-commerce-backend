@@ -73,6 +73,24 @@ Không tự ý chạy test dài; hỏi nếu muốn `-DskipTests=false`.
 - Sau khi push, in ra hash commit + tên branch để người dùng đối chiếu. Nếu đã tạo
   branch mới, gợi ý lệnh/đường dẫn mở PR bằng `gh`.
 
+## Môi trường máy này (Windows) — 2 bẫy đã biết khi push
+
+1. **SSL:** `git push` mặc định báo `SSL certificate problem: unable to get
+   local issuer certificate`. Khắc phục bằng SSL backend của Windows:
+   - Một lần: thêm `-c http.sslBackend=schannel` vào lệnh push.
+   - Vĩnh viễn cho repo: `git config --local http.sslBackend schannel`.
+2. **Nhiều tài khoản GitHub:** máy đăng nhập cả `khanhdo-afk` và `DHMaiKhanh`
+   qua `gh`. Repo này thuộc **`DHMaiKhanh`** — phải push bằng tài khoản đó,
+   không thì bị `403 Permission denied`. Trước khi push:
+   - `gh auth switch --user DHMaiKhanh`
+   - push kèm credential của gh: `git -c credential.helper='!gh auth git-credential' push origin main`
+
+   Lệnh push đầy đủ đã dùng được:
+   ```bash
+   gh auth switch --user DHMaiKhanh
+   git -c http.sslBackend=schannel -c credential.helper='!gh auth git-credential' push origin main
+   ```
+
 ## Ghi chú
 
 - Chỉ push khi người dùng đã yêu cầu (skill này chính là yêu cầu đó).
